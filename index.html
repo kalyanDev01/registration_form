@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signin</title>
+    <!--Tailwind-->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+    <!--Font awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="min-h-screen flex items-center justify-center bg-black">
+    <form id="registerForm" class="w-full max-w-md bg-white p-8 rounded-lg shadow-md space-y-6">
+        <div class="text-center">
+            <i class="fa-solid fa-arrow-right-to-bracket" style="color: #000000;"></i>
+        </div>
+
+        
+        <h1 class="text-center font-semibold">Register form</h1>
+        <input type="text" id="name" placeholder="Name" class="w-full p-2 border border-black rounded-xl">
+        <span id="nameError" class="text-sm text-red-700 mt-1 invisible"></span>
+
+        <input type="email" id="email" placeholder="Email" class="w-full p-2 border border-black rounded-xl">
+        <span id="emailError" class="text-sm text-red-700 mt-1 invisible"></span>
+
+        <input type="password" id="password" placeholder="Password" class="w-full p-2 border border-black rounded-xl">
+        <span id="passwordError" class="text-sm text-red-700 mt-1 invisible"></span>
+
+        <button type="submit" id="submitBtn" disabled
+            class="w-full bg-gray-400 rounded p-2 text-black hover:text-gray-100">Register</button>
+    </form>
+
+    <script>
+        let nameInput = document.getElementById("name");
+        let emailInput = document.getElementById("email");
+        let passwordInput = document.getElementById("password");
+        let submitBtn = document.getElementById("submitBtn");
+
+        let nameError = document.getElementById("nameError");
+        let emailError = document.getElementById("emailError");
+        let passwordError = document.getElementById("passwordError");
+
+        nameInput.addEventListener("input", checkFormValidity);
+        emailInput.addEventListener("input", checkFormValidity);
+        passwordInput.addEventListener("input", checkFormValidity);
+
+
+        function validateName() {
+            if (nameInput.value.trim() === ""|| nameInput.value.length<6) {
+                nameError.textContent = "Name is required (Min 6 characters)";
+                nameError.classList.remove('invisible');
+                return false;
+            } else {
+                nameError.textContent = "";
+                nameError.classList.add('invisible');
+                return true;
+            }
+        }
+
+        function validateEmail() {
+                const email = emailInput.value.trim();
+
+                if (email === "" || !email.includes("@") || !email.includes(".")) {
+                    emailError.textContent = "Enter a valid email";
+                    emailError.classList.remove("invisible");
+                    return false;
+                } else {
+                    emailError.textContent = "";
+                    emailError.classList.add("invisible");
+                    return true;
+                }
+            }
+
+
+
+        function validatePassword() {
+            if (passwordInput.value.trim() === "" || nameInput.value.length<6) {
+                passwordError.textContent = "Password is required (Min 6 characters)";
+                passwordError.classList.remove('invisible');
+                return false;
+            } else {
+                passwordError.textContent = "";
+                passwordError.classList.add('invisible');
+                return true;
+            }
+        }
+        function checkFormValidity() {
+            if (validateName() && validateEmail() && validatePassword()) {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('bg-gray-400');
+                submitBtn.classList.add('bg-black', 'text-white');
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.classList.remove('bg-black', 'text-white');
+                submitBtn.classList.add('bg-gray-400');
+            }
+        }
+
+        document.getElementById("registerForm").addEventListener("submit", function (e) {
+            alert("Form submitted successfully!");
+        });
+
+
+    </script>
+</body>
+
+</html>
